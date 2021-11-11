@@ -1,0 +1,11 @@
+{{#if this.isStarted}}
+<div id="playing-field">
+  {{#each this.field as |card|}}
+    <img src={{card.image}} {{on "click" (fn this.selectCard card.image) }} class={{if card.selected "selected" ""}}/>
+    {{!-- {{card.selected}} --}}
+  {{/each}}
+</div>
+{{else}}
+<button id="start-button" type="button" {{on "click" this.startGame}}>Start the game</button>
+<h1>You have not started a game</h1>
+{{/if}}
