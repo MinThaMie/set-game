@@ -22,21 +22,23 @@ const amount = {
   2: 2,
   3: 3,
 };
-
 let cards = [];
-for (let s in shapes) {
-  for (let a in amount) {
-    for (let f in fillings) {
-      for (let c in colors) {
-        let card = {
-          shape: s,
-          amount: a,
-          filling: f,
-          color: c,
-          image: `images/${s}${a}${f}_${c}.svg`,
-          selected: false,
-        };
-        cards.push(card);
+
+function getDeck() {
+  for (let s in shapes) {
+    for (let a in amount) {
+      for (let f in fillings) {
+        for (let c in colors) {
+          let card = {
+            shape: s,
+            amount: a,
+            filling: f,
+            color: c,
+            image: `images/${s}${a}${f}_${c}.svg`,
+            selected: false,
+          };
+          cards.push(card);
+        }
       }
     }
   }
@@ -91,6 +93,7 @@ function getRandomCard() {
 export default class PlayingfieldComponent extends Component {
   @tracked count = 0;
   @tracked isStarted = false;
+  @tracked isWon = false;
   @tracked field = [];
   @tracked selected = [];
 
@@ -107,7 +110,9 @@ export default class PlayingfieldComponent extends Component {
 
   @action startGame() {
     this.isStarted = true;
+    this.isWon = false;
     this.field = [];
+    getDeck();
     for (let i = 1; i <= 12; i++) {
       this.field.push(getRandomCard());
     }
@@ -143,8 +148,7 @@ export default class PlayingfieldComponent extends Component {
           }
         }
         if (cards.length == 0) {
-          this.isStarted = false;
-          console.log("THE END")
+          this.isWon = true;
         }
         this.count += 3;
       } else {

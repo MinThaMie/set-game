@@ -5,6 +5,10 @@
     {{!-- {{card.selected}} --}}
   {{/each}}
 </div>
+{{#if this.isWon}}
+<h2>You have finished the game</h2>
+<button id="start-button" type="button" {{on "click" this.startGame}}>Play again</button>
+{{/if}}
 {{else}}
 <button id="start-button" type="button" {{on "click" this.startGame}}>Start the game</button>
 <h1>You have not started a game</h1>
