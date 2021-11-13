@@ -1,7 +1,7 @@
 {{#if this.isStarted}}
 <div id="playing-field">
   {{#each this.field as |card|}}
-    <img src={{card.image}} {{on "click" (fn this.selectCard card.image) }} class={{if card.selected "selected" ""}}/>
+    <img src={{card.image}} {{on "click" (fn this.selectCard card.image) }} class="{{if card.selected "selected" ""}} {{if card.wrong "wrong"}}"/>
     {{!-- {{card.selected}} --}}
   {{/each}}
 </div>

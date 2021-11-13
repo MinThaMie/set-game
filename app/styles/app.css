@@ -9,7 +9,7 @@
 #playing-field img {
   height: 200px;
   margin: 0 20px 20px 0;
-  border: 1px solid black;
+  border: 3px solid transparent;
   border-radius: 8px;
   box-shadow: 2px 2px 5px darkgrey;
 }
