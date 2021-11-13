@@ -2,6 +2,23 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 
+class Card {
+  shape;
+  amount;
+  filling;
+  color;
+  image;
+  @tracked selected = false;
+  @tracked wrong = false;
+  constructor({ s, a, f, c }) {
+    this.shape = s;
+    this.amount = a;
+    this.filling = f;
+    this.color = c;
+    this.image = `images/${s}${a}${f}_${c}.svg`;
+  }
+}
+
 const colors = {
   red: 'red',
   green: 'green',
