@@ -110,6 +110,7 @@ export default class PlayingfieldComponent extends Component {
   @tracked selected = [];
   @tracked cards = [];
   @tracked time = 0;
+  @tracked finishTime = 0;
 
   get hasSet() {
     const combinations = k_combinations(this.field, 3);
@@ -126,6 +127,7 @@ export default class PlayingfieldComponent extends Component {
     this.isWon = false;
     this.field = [];
     this.cards = getDeck();
+    this.time = 0;
     for (let i = 1; i <= 12; i++) {
       let {rc, cards} = getRandomCard(this.cards)
       this.field.push(rc);
@@ -165,6 +167,7 @@ export default class PlayingfieldComponent extends Component {
         }
         if (this.cards.length == 0) {
           this.isWon = true;
+          this.finishTime = this.time;
         }
         this.count += 1;
       } else {

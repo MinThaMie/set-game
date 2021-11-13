@@ -1,7 +1,9 @@
 {{#if this.isStarted}}
 <div local-class="counter">
-  You have {{this.cards.length}} cards left. <br>
-  You have found {{this.count}} set(s) this game in {{this.time}} seconds
+  <p>
+    You have {{this.cards.length}} cards left. <br>
+    You have found {{this.count}}/27 sets so far in {{this.time}} seconds.
+  </p>
 </div>
 <div local-class="playing-field">
   {{#each this.field as |card|}}
@@ -9,7 +11,7 @@
   {{/each}}
 </div>
 {{#if this.isWon}}
-<h2>You have finished the game</h2>
+<h2>You have finished the game in {{this.finishTime}} seconds.</h2>
 <button id="start-button" type="button" {{on "click" this.startGame}}>Play again</button>
 {{/if}}
 {{else}}
