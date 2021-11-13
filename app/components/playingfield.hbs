@@ -1,4 +1,8 @@
 {{#if this.isStarted}}
+<div local-class="counter">
+  You have {{this.cards.length}} cards left. <br>
+  You have found {{this.count}} set(s) this game in {{this.time}} seconds
+</div>
 <div local-class="playing-field">
   {{#each this.field as |card|}}
     <Card @image={{card.image}} @selected={{card.selected}} @wrong={{card.wrong}} @onSelect={{this.selectCard}}/>

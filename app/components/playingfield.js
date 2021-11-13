@@ -1,6 +1,7 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
+import { timeout , task} from 'ember-concurrency';
 
 class Card {
   shape;
@@ -39,19 +40,20 @@ const amount = {
   2: 2,
   3: 3,
 };
-let cards = [];
 
 function getDeck() {
+  let deck = []
   for (let s in shapes) {
     for (let a in amount) {
       for (let f in fillings) {
         for (let c in colors) {
           let card = new Card({ s, a, f, c });
-          cards.push(card);
+          deck.push(card);
         }
       }
     }
   }
+  return deck;
 }
 
 function isSet(a, b, c) {
@@ -93,11 +95,11 @@ function k_combinations(set, k) {
   return combs;
 }
 
-function getRandomCard() {
+function getRandomCard(cards) {
   const randomIndex = Math.floor(Math.random() * cards.length);
   let randomCard = cards[randomIndex];
   cards.splice(randomIndex, 1);
-  return randomCard;
+  return {rc: randomCard, cards: cards};
 }
 
 export default class PlayingfieldComponent extends Component {
@@ -106,6 +108,8 @@ export default class PlayingfieldComponent extends Component {
   @tracked isWon = false;
   @tracked field = [];
   @tracked selected = [];
+  @tracked cards = [];
+  @tracked time = 0;
 
   get hasSet() {
     const combinations = k_combinations(this.field, 3);
@@ -121,11 +125,14 @@ export default class PlayingfieldComponent extends Component {
     this.isStarted = true;
     this.isWon = false;
     this.field = [];
-    getDeck();
+    this.cards = getDeck();
     for (let i = 1; i <= 12; i++) {
-      this.field.push(getRandomCard());
+      let {rc, cards} = getRandomCard(this.cards)
+      this.field.push(rc);
+      this.cards = cards;
     }
     this.field = [...this.field];
+    this.timerTask.perform();
   }
 
   @action selectCard(id) {
@@ -142,20 +149,24 @@ export default class PlayingfieldComponent extends Component {
       const isValidSet = isSet(...picked);
       if (isValidSet) {
         this.field = this.field.filter((c) => !c.selected);
-        if (cards.length > 0 && this.field.length < 12) {
+        if (this.cards.length > 0 && this.field.length < 12) {
           for (let i = 1; i <= 3; i++) {
-            this.field.push(getRandomCard());
+            let {rc, cards} = getRandomCard(this.cards)
+            this.field.push(rc);
+            this.cards = cards;
           }
         }
-        if (!this.hasSet && cards.length > 0) {
+        if (!this.hasSet && this.cards.length > 0) {
           for (let i = 1; i <= 3; i++) {
-            this.field.push(getRandomCard());
+            let {rc, cards} = getRandomCard(this.cards)
+            this.field.push(rc);
+            this.cards = cards;
           }
         }
-        if (cards.length == 0) {
+        if (this.cards.length == 0) {
           this.isWon = true;
         }
-        this.count += 3;
+        this.count += 1;
       } else {
         picked.forEach((p) => {
           p.wrong = true;
@@ -167,5 +178,12 @@ export default class PlayingfieldComponent extends Component {
       }
     }
     this.field = [...this.field];
+  }
+
+  @task *timerTask() {
+    while(true) {
+      yield timeout(1000);
+      this.time += 1;
+    }
   }
 }
