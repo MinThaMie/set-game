@@ -1,8 +1,7 @@
 {{#if this.isStarted}}
-<div id="playing-field">
+<div local-class="playing-field">
   {{#each this.field as |card|}}
-    <img src={{card.image}} {{on "click" (fn this.selectCard card.image) }} class="{{if card.selected "selected" ""}} {{if card.wrong "wrong"}}"/>
-    {{!-- {{card.selected}} --}}
+    <Card @image={{card.image}} @selected={{card.selected}} @wrong={{card.wrong}} @onSelect={{this.selectCard}}/>
   {{/each}}
 </div>
 {{#if this.isWon}}

@@ -125,7 +125,7 @@ export default class PlayingfieldComponent extends Component {
     for (let i = 1; i <= 12; i++) {
       this.field.push(getRandomCard());
     }
-    this.field = this.field;
+    this.field = [...this.field];
   }
 
   @action selectCard(id) {

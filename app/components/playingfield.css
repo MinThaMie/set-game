@@ -1,0 +1,7 @@
+.playing-field {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 15px;
+  grid-auto-flow: column;
+  justify-content: center;
+}
