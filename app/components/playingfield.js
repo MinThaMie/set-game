@@ -46,14 +46,7 @@ function getDeck() {
     for (let a in amount) {
       for (let f in fillings) {
         for (let c in colors) {
-          let card = {
-            shape: s,
-            amount: a,
-            filling: f,
-            color: c,
-            image: `images/${s}${a}${f}_${c}.svg`,
-            selected: false,
-          };
+          let card = new Card({ s, a, f, c });
           cards.push(card);
         }
       }
@@ -118,7 +111,6 @@ export default class PlayingfieldComponent extends Component {
     const combinations = k_combinations(this.field, 3);
     let foundSet = combinations.find((comb) => isSet(...comb));
     if (foundSet) {
-      console.log(foundSet[0].image, foundSet[1].image, foundSet[2].image);
       return true;
     } else {
       return false;
@@ -146,18 +138,14 @@ export default class PlayingfieldComponent extends Component {
     }
     if (this.selected.length === 3) {
       const picked = this.field.filter((c) => c.selected);
-      console.log(picked);
       this.selected = [];
       const isValidSet = isSet(...picked);
       if (isValidSet) {
-        console.log('valid set');
         this.field = this.field.filter((c) => !c.selected);
-        console.log(cards.length);
-        console.log(this.hasSet);
         if (cards.length > 0 && this.field.length < 12) {
-            for (let i = 1; i <= 3; i++) {
-              this.field.push(getRandomCard());
-            }
+          for (let i = 1; i <= 3; i++) {
+            this.field.push(getRandomCard());
+          }
         }
         if (!this.hasSet && cards.length > 0) {
           for (let i = 1; i <= 3; i++) {
@@ -169,7 +157,12 @@ export default class PlayingfieldComponent extends Component {
         }
         this.count += 3;
       } else {
-        console.log('LOSER');
+        picked.forEach((p) => {
+          p.wrong = true;
+          setTimeout(() => {
+            p.wrong = false;
+          }, 820);
+        });
         this.field.forEach((card) => (card.selected = false));
       }
     }
