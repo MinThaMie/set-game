@@ -1,8 +1,10 @@
+
+<div local-class="container">
 {{#if this.isStarted}}
-<div local-class="counter">
+<div local-class="counter {{if this.isWon "hide" }}">
   <p>
     You have {{this.cards.length}} cards left. <br>
-    You have found {{this.count}}/27 sets so far in {{this.time}} seconds.
+    You have found {{this.count}} sets so far in {{this.time}} seconds.
   </p>
 </div>
 <div local-class="playing-field">
@@ -11,10 +13,15 @@
   {{/each}}
 </div>
 {{#if this.isWon}}
-<h2>You have finished the game in {{this.finishTime}} seconds.</h2>
-<button id="start-button" type="button" {{on "click" this.startGame}}>Play again</button>
+<div local-class="won">
+  <h2>You have finished the game in {{this.finishTime}} seconds.</h2>
+  <button type="button" {{on "click" this.startGame}}>Play again</button>
+</div>
 {{/if}}
 {{else}}
-<button id="start-button" type="button" {{on "click" this.startGame}}>Start the game</button>
-<h1>You have not started a game</h1>
+<div local-class="start">
+  <h1>You have not started a game</h1>
+  <button local-class="start-button" type="button" {{on "click" this.startGame}}>Start the game</button>
+</div>
 {{/if}}
+</div>
