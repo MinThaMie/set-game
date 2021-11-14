@@ -165,7 +165,7 @@ export default class PlayingfieldComponent extends Component {
             this.cards = cards;
           }
         }
-        if (this.cards.length == 0) {
+        if (this.cards.length == 0 && !this.hasSet) {
           this.isWon = true;
           this.finishTime = this.time;
         }
