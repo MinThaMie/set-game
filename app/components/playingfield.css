@@ -5,3 +5,12 @@
   grid-auto-flow: column;
   justify-content: center;
 }
+
+.counter {
+  display: flex;
+}
+
+.counter p {
+  margin-left: auto;
+  margin-right: auto;
+}
