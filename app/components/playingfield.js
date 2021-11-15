@@ -139,9 +139,16 @@ export default class PlayingfieldComponent extends Component {
     const picked = this.field.filter((c) => c.selected);
     this.selected = [];
     if (this.isSet(...picked)) {
-      this.field = this.field.filter((c) => !c.selected);
-      if (this.cards.length > 0 && this.field.length < 12) {
-        this.field = [...this.field, ...this.getCards(3)];
+      if (this.cards.length > 0 && this.field.length <= 12) {
+        this.field = this.field.map((c) => {
+          if (c.selected) {
+            return this.getCards(1)[0];
+          } else {
+            return c;
+          }
+        });
+      } else {
+        this.field = this.field.filter((c) => !c.selected);
       }
       while (!this.hasSet && this.cards.length > 0) {
         this.field = [...this.field, ...this.getCards(3)];
