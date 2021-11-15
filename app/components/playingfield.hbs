@@ -4,12 +4,14 @@
 <div local-class="counter {{if this.isWon "hide" }}">
   <p>
     You have {{this.cards.length}} cards left. <br>
-    You have found {{this.count}} sets so far in {{this.time}} seconds.
+    You have found {{this.count}} sets so far in {{this.time}} seconds. <br>
+    You have used {{this.hintCounter}} hints <br>
+    <button local-class="hint-button" type="button" {{on "click" this.getHint}}>Get a hint</button>
   </p>
 </div>
 <div local-class="playing-field">
   {{#each this.field as |card|}}
-    <Card @image={{card.image}} @selected={{card.selected}} @wrong={{card.wrong}} @onSelect={{this.selectCard}}/>
+    <Card @image={{card.image}} @selected={{card.selected}} @wrong={{card.wrong}} @hint={{card.hint}} @onSelect={{this.selectCard}}/>
   {{/each}}
 </div>
 {{#if this.isWon}}

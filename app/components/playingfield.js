@@ -11,6 +11,7 @@ class Card {
   image;
   @tracked selected = false;
   @tracked wrong = false;
+  @tracked hint = false;
   constructor({ s, a, f, c }) {
     this.shape = s;
     this.amount = a;
@@ -49,6 +50,7 @@ export default class PlayingfieldComponent extends Component {
   @tracked cards = [];
   @tracked time = 0;
   @tracked finishTime = 0;
+  @tracked hintCounter = 0;
 
   get hasSet() {
     const combinations = this.k_combinations(this.field, 3);
@@ -189,6 +191,13 @@ export default class PlayingfieldComponent extends Component {
       this.checkPotentialSet();
     }
     this.field = [...this.field];
+  }
+
+  @action getHint() {
+    const combinations = this.k_combinations(this.field, 3);
+    let foundSet = combinations.find((comb) => this.isSet(...comb));
+    foundSet[this.hintCounter % 3].hint = true;
+    this.hintCounter++;
   }
 
   @task *timerTask() {
