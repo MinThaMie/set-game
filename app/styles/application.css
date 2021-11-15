@@ -1,3 +1,6 @@
+body {
+  background-color: rgb(244, 246, 248);
+}
 footer {
   background-color:red;
 }
@@ -8,7 +11,35 @@ button {
   border-radius: 20px;
   box-shadow: 0;
   transition: box-shadow 0.5s;
+  padding: 0 20px;
 }
 button:hover {
   box-shadow: 2px 2px 10px #673ab7;
+}
+
+.navigation {
+  background-color: #673ab7;
+}
+.navigation ul {
+  display: flex;
+  margin: 0;
+  justify-content: center;
+  list-style: none;
+  padding: 20px 0 7px 0;
+}
+
+.navigation a {
+  color: white;
+  padding: 10px 20px;
+}
+
+.navigation a:hover:not(:global(.active)) {
+  background-color: #46287d;
+  border-radius: 8px 8px 0 0;
+}
+
+a:global(.active) {
+  background-color: rgb(244, 246, 248);
+  color: #673ab7;
+  border-radius: 8px 8px 0 0;
 }
