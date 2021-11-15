@@ -126,11 +126,13 @@ export default class PlayingfieldComponent extends Component {
   }
 
   getCards(amount) {
+    let drawn = [];
     for (let i = 1; i <= amount; i++) {
       let { rc, cards } = this.getRandomCard(this.cards);
-      this.field.push(rc);
+      drawn.push(rc);
       this.cards = cards;
     }
+    return drawn;
   }
 
   checkPotentialSet() {
@@ -139,10 +141,10 @@ export default class PlayingfieldComponent extends Component {
     if (this.isSet(...picked)) {
       this.field = this.field.filter((c) => !c.selected);
       if (this.cards.length > 0 && this.field.length < 12) {
-        this.getCards(3);
+        this.field = [...this.field, ...this.getCards(3)];
       }
       while (!this.hasSet && this.cards.length > 0) {
-        this.getCards(3);
+        this.field = [...this.field, ...this.getCards(3)];
       }
       if (this.isWon) {
         this.finishTime = this.time;
@@ -161,7 +163,7 @@ export default class PlayingfieldComponent extends Component {
 
   @action startGame() {
     this.cards = this.getDeck();
-    this.getCards(12);
+    this.field = [...this.getCards(12)];
     this.time = 0;
     this.count = 0;
     this.timerTask.perform();
