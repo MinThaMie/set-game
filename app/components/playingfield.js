@@ -49,6 +49,7 @@ export default class PlayingfieldComponent extends Component {
   @tracked selected = [];
   @tracked cards = [];
   @tracked time = 0;
+  @tracked startTime = 0;
   @tracked finishTime = 0;
   @tracked hintCounter = 0;
   @tracked hintsActive = 0; // Max 3 since a set contains 3 cards
@@ -175,7 +176,7 @@ export default class PlayingfieldComponent extends Component {
   @action startGame() {
     this.cards = this.getDeck();
     this.field = [...this.getCards(12)];
-    this.time = 0;
+    this.startTime = Date.now();
     this.hintCounter = 0;
     this.count = 0;
     this.timerTask.perform();
@@ -210,7 +211,7 @@ export default class PlayingfieldComponent extends Component {
   @task *timerTask() {
     while (true) {
       yield timeout(1000);
-      this.time += 1;
+      this.time = Math.floor((Date.now() - this.startTime)/1000);
     }
   }
 }
