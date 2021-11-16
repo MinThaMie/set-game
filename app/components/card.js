@@ -3,7 +3,7 @@ import { action } from '@ember/object';
 
 export default class CardComponent extends Component {
   @action
-  handleClick(){
+  handleClick() {
     this.args.onSelect?.(...arguments);
   }
 }
