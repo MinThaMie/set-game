@@ -51,6 +51,7 @@ export default class PlayingfieldComponent extends Component {
   @tracked time = 0;
   @tracked finishTime = 0;
   @tracked hintCounter = 0;
+  @tracked hintsActive = 0; // Max 3 since a set contains 3 cards
 
   get hasSet() {
     const combinations = this.k_combinations(this.field, 3);
@@ -159,6 +160,7 @@ export default class PlayingfieldComponent extends Component {
         this.finishTime = this.time;
       }
       this.count += 1;
+      this.hintsActive = 0;
     } else {
       picked.forEach((p) => {
         p.wrong = true;
@@ -174,6 +176,7 @@ export default class PlayingfieldComponent extends Component {
     this.cards = this.getDeck();
     this.field = [...this.getCards(12)];
     this.time = 0;
+    this.hintCounter = 0;
     this.count = 0;
     this.timerTask.perform();
     this.isStarted = true;
@@ -197,7 +200,11 @@ export default class PlayingfieldComponent extends Component {
     const combinations = this.k_combinations(this.field, 3);
     let foundSet = combinations.find((comb) => this.isSet(...comb));
     foundSet[this.hintCounter % 3].hint = true;
-    this.hintCounter++;
+    if (this.hintsActive < 3) {
+      this.hintCounter++;
+      this.hintsActive++;
+    }
+    
   }
 
   @task *timerTask() {
