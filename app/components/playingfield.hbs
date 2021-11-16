@@ -9,11 +9,13 @@
     <button local-class="hint-button" type="button" {{on "click" this.getHint}}>Get a hint</button>
   </p>
 </div>
+ <AnimatedContainer>
 <div local-class="playing-field">
-  {{#each this.field as |card|}}
+  {{#animated-each this.field use=transition as |card|}}
     <Card @image={{card.image}} @selected={{card.selected}} @wrong={{card.wrong}} @hint={{card.hint}} @onSelect={{this.selectCard}}/>
-  {{/each}}
+  {{/animated-each}}
 </div>
+ </AnimatedContainer>
 {{#if this.isWon}}
 <div local-class="won">
   <h2>You have finished the game in {{this.finishTime}} seconds and used {{this.hintCounter}} hints.</h2>

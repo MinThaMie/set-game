@@ -2,6 +2,8 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { timeout, task } from 'ember-concurrency';
+import move from 'ember-animated/motions/move';
+import fade from 'ember-animated/transitions/fade';
 
 class Card {
   shape;
@@ -229,6 +231,21 @@ export default class PlayingfieldComponent extends Component {
     while (true) {
       yield timeout(1000);
       this.time = Math.floor((Date.now() - this.startTime) / 1000);
+    }
+  }
+
+  *transition({ keptSprites, insertedSprites, removedSprites }) {
+    // for (let sprite of insertedSprites) {
+    //   sprite.applyStyles({ 'z-index': '1' });
+    //   sprite.startAtPixel({ y: 0 });
+    //   fade(sprite);
+    // }
+
+    for (let sprite of removedSprites) {
+      console.log("I should move out of the way")
+      sprite.applyStyles({ 'z-index': '1' });
+      sprite.endAtPixel({ x: window.innerWidth - 200, y: 300 });
+      move(sprite);
     }
   }
 }
