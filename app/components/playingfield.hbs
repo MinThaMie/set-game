@@ -16,13 +16,13 @@
 </div>
 {{#if this.isWon}}
 <div local-class="won">
-  <h2>You have finished the game in {{this.finishTime}} seconds.</h2>
+  <h2>You have finished the game in {{this.finishTime}} seconds and used {{this.hintCounter}} hints.</h2>
   <button type="button" {{on "click" this.startGame}}>Play again</button>
 </div>
 {{/if}}
 {{else}}
 <div local-class="start">
-  <h1>You have not started a game</h1>
+  <h1>You have not started a{{if @easy "n easy"}} game</h1>
   <button local-class="start-button" type="button" {{on "click" this.startGame}}>Start the game</button>
 </div>
 {{/if}}

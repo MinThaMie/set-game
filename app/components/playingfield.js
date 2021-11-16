@@ -83,6 +83,19 @@ export default class PlayingfieldComponent extends Component {
     return deck;
   }
 
+  getSimpleDeck() {
+    let deck = [];
+    for (let s in shapes) {
+      for (let a in amount) {
+        for (let c in colors) {
+          let card = new Card({ s, a, f: 'solid', c });
+          deck.push(card);
+        }
+      }
+    }
+    return deck;
+  }
+
   isSet(a, b, c) {
     return (
       this.validateProps(a.shape, b.shape, c.shape) &&
@@ -174,8 +187,13 @@ export default class PlayingfieldComponent extends Component {
   }
 
   @action startGame() {
-    this.cards = this.getDeck();
-    this.field = [...this.getCards(12)];
+    if (this.args.easy) {
+      this.cards = this.getSimpleDeck();
+      this.field = [...this.getCards(9)];
+    } else {
+      this.cards = this.getDeck();
+      this.field = [...this.getCards(12)];
+    }
     this.startTime = Date.now();
     this.hintCounter = 0;
     this.count = 0;
@@ -205,13 +223,12 @@ export default class PlayingfieldComponent extends Component {
       this.hintCounter++;
       this.hintsActive++;
     }
-    
   }
 
   @task *timerTask() {
     while (true) {
       yield timeout(1000);
-      this.time = Math.floor((Date.now() - this.startTime)/1000);
+      this.time = Math.floor((Date.now() - this.startTime) / 1000);
     }
   }
 }
