@@ -1,1 +1,3 @@
-<img data-test-card src={{@image}} alt={{@image}} {{on "click" (fn this.handleClick @image) }} local-class="{{if @selected "selected" ""}} {{if @wrong "wrong"}} {{if @hint "hint"}}"/>
+<button type="button" {{on "click" (fn this.handleClick @image) }} local-class="{{if @selected "selected" ""}} {{if @wrong "wrong"}} {{if @hint "hint"}}">
+  <img data-test-card src={{@image}} alt={{@image}}/>
+</button>

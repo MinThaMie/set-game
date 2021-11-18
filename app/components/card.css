@@ -1,26 +1,31 @@
-img {
+button {
   height: 200px;
   margin: 0 20px 20px 0;
   border: 3px solid transparent;
   border-radius: 8px;
   box-shadow: 2px 2px 5px darkgrey;
+  background-color: white;
 }
 
-img:hover {
+button:hover {
   box-shadow: 5px 5px 10px grey;
 }
-img.hint {
+button.hint {
   border: 3px dashed #4caf50;
 }
 
-img.selected {
+button.selected {
   border: 3px solid orange;
 }
 
-img.wrong {
+button.wrong {
   border: 3px solid red;
   animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
   transform: translateX(0, 0, 0);
+}
+
+img {
+  height: 100%;
 }
 
 @keyframes shake {
