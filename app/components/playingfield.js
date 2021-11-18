@@ -227,7 +227,7 @@ export default class PlayingfieldComponent extends Component {
 
   @task *timerTask() {
     while (true) {
-      yield timeout(1000);
+      yield new Promise((resolve) => setTimeout(resolve, 1000));
       this.time = Math.floor((Date.now() - this.startTime) / 1000);
     }
   }

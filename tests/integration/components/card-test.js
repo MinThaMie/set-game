@@ -7,20 +7,22 @@ module('Integration | Component | card', function (hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function (assert) {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.set('myAction', function(val) { ... });
-
-    await render(hbs`<Card />`);
-
-    assert.dom(this.element).hasText('');
-
-    // Template block usage:
+    // Render unselected card:
     await render(hbs`
-      <Card>
-        template block text
-      </Card>
+      <Card @image="images/diamond1solid_green.svg" @selected={{false}} @wrong={{false}} @hint={{false}}/>
     `);
+    let img = this.element.querySelector('img');
+    assert.dom(img).hasAttribute('src', 'images/diamond1solid_green.svg');
+  });
 
-    assert.dom(this.element).hasText('template block text');
+  test('it replaces hint styling with selected styling', async function (assert) {
+    // Render selected card that is hinted
+    await render(hbs`
+     <Card @image="images/diamond1solid_green.svg" @selected={{true}} @wrong={{false}} @hint={{true}}/>
+   `);
+    let img = this.element.querySelector('img');
+    assert.dom(img).hasStyle({
+      border: '3px solid rgb(255, 165, 0)',
+    });
   });
 });
