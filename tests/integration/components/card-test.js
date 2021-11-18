@@ -19,7 +19,6 @@ module('Integration | Component | card', function (hooks) {
     await render(hbs`
      <Card @image="images/diamond1solid_green.svg" @selected={{true}} @wrong={{false}} @hint={{true}}/>
    `);
-  // await this.pauseTest();
     assert.dom('[data-test-card]').hasStyle({
       border: '3px solid rgb(255, 165, 0)',
       borderWidth: '3px',
