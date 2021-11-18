@@ -11,8 +11,7 @@ module('Integration | Component | card', function (hooks) {
     await render(hbs`
       <Card @image="images/diamond1solid_green.svg" @selected={{false}} @wrong={{false}} @hint={{false}}/>
     `);
-    let img = this.element.querySelector('img');
-    assert.dom(img).hasAttribute('src', 'images/diamond1solid_green.svg');
+    assert.dom('img').hasAttribute('src', 'images/diamond1solid_green.svg');
   });
 
   test('it replaces hint styling with selected styling', async function (assert) {
@@ -20,9 +19,10 @@ module('Integration | Component | card', function (hooks) {
     await render(hbs`
      <Card @image="images/diamond1solid_green.svg" @selected={{true}} @wrong={{false}} @hint={{true}}/>
    `);
-    let img = this.element.querySelector('img');
-    assert.dom(img).hasStyle({
+  // await this.pauseTest();
+    assert.dom('[data-test-card]').hasStyle({
       border: '3px solid rgb(255, 165, 0)',
+      borderWidth: '3px',
     });
   });
 });

@@ -196,6 +196,7 @@ export default class PlayingfieldComponent extends Component {
     }
     this.startTime = Date.now();
     this.hintCounter = 0;
+    this.hintsActive = 0;
     this.count = 0;
     this.timerTask.perform();
     this.isStarted = true;
