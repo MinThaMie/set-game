@@ -6,7 +6,7 @@
     You have {{this.cards.length}} cards left. <br>
     You have found {{this.count}} sets so far in {{this.time}} seconds. <br>
     You have used {{this.hintCounter}} hints <br>
-    <button local-class="hint-button" type="button" {{on "click" this.getHint}}>Get a hint</button>
+    <button class="button" data-test-hint local-class="hint-button" type="button" {{on "click" this.getHint}}>Get a hint</button>
   </p>
 </div>
 <div local-class="playing-field">
@@ -17,13 +17,13 @@
 {{#if this.isWon}}
 <div local-class="won">
   <h2>You have finished the game in {{this.finishTime}} seconds and used {{this.hintCounter}} hints.</h2>
-  <button type="button" {{on "click" this.startGame}}>Play again</button>
+  <button class="button" local-class="start-button" type="button" {{on "click" this.startGame}}>Play again</button>
 </div>
 {{/if}}
 {{else}}
 <div local-class="start">
   <h1>You have not started a{{if @easy "n easy"}} game</h1>
-  <button local-class="start-button" type="button" {{on "click" this.startGame}}>Start the game</button>
+  <button class="button" local-class="start-button" data-test-startbutton type="button" {{on "click" this.startGame}}>Start the game</button>
 </div>
 {{/if}}
 </div>

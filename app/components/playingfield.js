@@ -1,7 +1,7 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
-import { timeout, task } from 'ember-concurrency';
+import { task } from 'ember-concurrency';
 
 class Card {
   shape;
@@ -196,6 +196,7 @@ export default class PlayingfieldComponent extends Component {
     }
     this.startTime = Date.now();
     this.hintCounter = 0;
+    this.hintsActive = 0;
     this.count = 0;
     this.timerTask.perform();
     this.isStarted = true;
@@ -227,7 +228,7 @@ export default class PlayingfieldComponent extends Component {
 
   @task *timerTask() {
     while (true) {
-      yield timeout(1000);
+      yield new Promise((resolve) => setTimeout(resolve, 1000));
       this.time = Math.floor((Date.now() - this.startTime) / 1000);
     }
   }
