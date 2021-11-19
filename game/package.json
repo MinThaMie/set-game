@@ -69,5 +69,9 @@
   },
   "ember": {
     "edition": "octane"
+  },
+  "dependencies": {
+    "lodash-es": "^4.17.21",
+    "nanoid": "^3.1.30"
   }
 }

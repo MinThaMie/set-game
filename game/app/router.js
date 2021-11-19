@@ -10,4 +10,9 @@ Router.map(function () {
   this.route('instructions');
   this.route('play');
   this.route('easy');
+  this.route('multi', function () {
+    this.route('play', { path: '/play/:play_id' }, function () {
+      this.route('lobby');
+    });
+  });
 });
