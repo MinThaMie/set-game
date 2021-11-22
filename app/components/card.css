@@ -45,3 +45,13 @@
     transform: translateX(4px);
   }
 }
+
+@media(max-width:450px) and (orientation: portrait) {
+  .button {
+    height: 100%;
+    margin: 0;
+  }
+  .img {
+    width: 100%;
+  }
+}

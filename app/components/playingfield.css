@@ -51,3 +51,19 @@
 .hint-button:hover {
   box-shadow: 2px 2px 10px #4caf50;
 }
+
+@media(max-width:450px) and (orientation: portrait) {
+  .container {
+    grid-template-areas:
+  "header header header"
+  "main main main"
+  "sidebar sidebar sidebar";
+  }
+  .playing-field {
+    grid-template-columns: 22vw 22vw 22vw 22vw;
+    gap: 8px;
+    grid-auto-flow: row;
+    width:100vw;
+    justify-content: center;
+  }
+}
