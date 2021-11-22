@@ -85,6 +85,7 @@ export class StateService extends Service {
   syncTask;
 
   async connect(room) {
+    console.log("state connect")
     try {
       await this.socket.connect(room);
     } catch (err) {
@@ -92,6 +93,7 @@ export class StateService extends Service {
     }
     //TODO: this does not resolve
     const data = await this.socket.roomRead();
+    console.log(data, "in state")
     this.current = new GameState(data);
     this.assignPlayer();
 
@@ -102,12 +104,13 @@ export class StateService extends Service {
 
   subscribe() {
     this.socket.subscribe('room.sync', (data) => {
+      console.log(date, "subscribe state")
       if (!data) {
         return;
       }
 
       this.current = this.current.merge(data);
-
+      console.log(this.current, this.player, "statejs")
       if (!this.player) {
         this.current = null;
         this.socket.room = undefined;
@@ -142,11 +145,12 @@ export class StateService extends Service {
     if (this.cards.length > 0) {
       return;
     }
-
-    this.current.updatePlayer(...this.user.data);
+    console.log(this.user.data, "assign player")
+    this.current.updatePlayer({...this.user.data});
   }
 
   async updatePlayer(player) {
+    console.log(player, "update player state")
     this.current.updatePlayer(player);
 
     await this.syncTask.perform();

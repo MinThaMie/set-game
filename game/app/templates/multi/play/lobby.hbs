@@ -1,4 +1,6 @@
 {{page-title "Lobby"}}
+<h1>Lobby</h1>
+{{this.state.players.length}} players have connected
  {{#each this.state.players as |player| }}
   <p>{{player.user.name}}</p>
  {{/each}}

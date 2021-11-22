@@ -1,5 +1,4 @@
 import _merge from 'lodash-es/merge';
-// import { TrackedMap } from 'tracked-built-ins';
 import { tracked } from '@glimmer/tracking';
 
 const mergeIntoNewObject = (...args) => _merge({}, ...args);
@@ -22,7 +21,7 @@ export default class GameState {
     const players = data?.players !== undefined ? [...data.players] : [];
     const cards = data?.cards !== undefined ? [...data.cards] : [];
     const field = data?.field !== undefined ? [...data.field] : [];
-
+    console.log(players, "constructor")
     this._players = [...players];
     this.cards = cards;
     this.field = field;
@@ -41,14 +40,11 @@ export default class GameState {
   }
 
   updatePlayer(data) {
-    if (!data) {
+    if (!data || this._players.includes(data.id)) {
       return;
     }
 
-    this._players.set(
-      data.id,
-      mergeIntoNewObject(this._players.get(data.id) || {}, data)
-    );
+    this._players = [...this._players, data.id];
   }
 
   removePlayer(id) {
@@ -64,7 +60,7 @@ export default class GameState {
     this.field = state.field;
 
     this._players.clear();
-    state.players?.forEach(([, player]) => {
+    state.players?.forEach((player) => {
       this.updatePlayer(player);
     });
 
@@ -73,7 +69,7 @@ export default class GameState {
 
   serialize() {
     return {
-      players: [...this._players.entries()],
+      players: [...this._players],
       cards: this.cards,
       field: this.field,
     };

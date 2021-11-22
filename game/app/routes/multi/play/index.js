@@ -13,7 +13,7 @@ export default class PlayIndexRoute extends Route {
     }
 
     if (this.state.cards.length === 0) {
-      this.router.replaceWith('game.lobby');
+      this.router.replaceWith('multi.play.lobby');
 
       return;
     }

@@ -8,6 +8,7 @@ export default class MultiPlayRoute extends Route {
   @service user;
 
   async model({ play_id }) {
+    console.log("wooop")
     this.socket.room = play_id;
     await this.state.connect(play_id);
 
@@ -29,11 +30,11 @@ export default class MultiPlayRoute extends Route {
         this.state.cards.length > 0 ? 'multi' : 'multi.play.lobby'
       );
     };
-
+    console.log("activate route")
     this.socket.subscribe('room.sync', this._onRoomSync);
   }
 
   deactivate() {
-    this.socket.unsubscribe('room.sync', this._onRoomSync);
+    this.socket.unsubscribe('room.sync', this._on );
   }
 }

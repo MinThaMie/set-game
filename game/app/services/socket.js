@@ -71,6 +71,7 @@ export default class SocketService extends Service {
   }
 
   async joinRoom() {
+    console.log("Join room")
     await this.write('room.join', {
       room: this.room,
     });
@@ -108,6 +109,7 @@ export default class SocketService extends Service {
   // --- Room shortcuts
 
   roomSync(payload) {
+    console.log("roomsync", payload)
     return this.write('room.sync', {
       ...payload,
     });
@@ -115,8 +117,9 @@ export default class SocketService extends Service {
 
   async roomRead() {
     //TODO: this fetch does not resolve
+    console.log("Room read socket.js")
     const response = await fetch(`${getServer()}/rooms/${this.room}`);
-
+    console.log("after response")
     return response.json();
   }
 }
