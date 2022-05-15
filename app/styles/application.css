@@ -1,5 +1,7 @@
 body {
   background-color: rgb(244, 246, 248);
+  margin: 0;
+  font-family: Trebuchet MS,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Tahoma,sans-serif;
 }
 footer {
   background-color:red;
@@ -15,6 +17,7 @@ footer {
 
 .navigation {
   background-color: #673ab7;
+  height: 49px;
 }
 .navigation ul {
   display: flex;
