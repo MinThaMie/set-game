@@ -238,7 +238,7 @@ export default class PlayingfieldComponent extends Component {
     this.timerTask.perform();
     this.isStarted = true;
     let highscoresString = localStorage.getItem('highscores');
-    this.highscores = JSON.parse(highscoresString).sort((a, b) => a > b);
+    this.highscores = JSON.parse(highscoresString)?.sort((a, b) => a > b) ?? [];
   }
 
   @action selectCard(id) {
