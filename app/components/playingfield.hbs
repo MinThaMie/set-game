@@ -8,6 +8,14 @@
     You have used {{this.hintCounter}} hints <br>
     <button class="button" data-test-hint local-class="hint-button" type="button" {{on "click" this.getHint}}>Get a hint</button>
   </p>
+  <div local-class="highscore">
+    <div local-class="highscore-header"><h2>High scores</h2><button class="button" local-class="reset-button" type="button" {{on "click" this.clearHighScores}}>🗑️</button></div>
+    <ol>
+    {{#each this.highscores as |score| }}
+      <li><span local-class="score">{{score}}</span> seconds</li>
+    {{/each}}
+    </ol>
+  </div>
 </div>
 <div local-class="playing-field">
   {{#each this.field as |card|}}
@@ -17,6 +25,7 @@
 {{#if this.isWon}}
 <div local-class="won">
   <h2>You have finished the game in {{this.finishTime}} seconds and used {{this.hintCounter}} hints.</h2>
+  {{#if this.isHighScore}}<h3>🥳 You've score a new highscore! You're no. {{this.noHighScore}}</h3>{{/if}}
   <button class="button" local-class="start-button" type="button" {{on "click" this.startGame}}>Play again</button>
 </div>
 {{/if}}

@@ -53,6 +53,8 @@ export default class PlayingfieldComponent extends Component {
   @tracked finishTime = 0;
   @tracked hintCounter = 0;
   @tracked hintsActive = 0; // Max 3 since a set contains 3 cards
+  @tracked highscores = [];
+  @tracked isHighScore = false;
 
   get hasSet() {
     const combinations = this.k_combinations(this.field, 3);
@@ -66,6 +68,10 @@ export default class PlayingfieldComponent extends Component {
 
   get isWon() {
     return this.isStarted && this.cards.length == 0 && !this.hasSet;
+  }
+
+  get noHighScore() {
+    return this.highscores.indexOf(this.finishTime) + 1;
   }
 
   getDeck() {
@@ -152,6 +158,27 @@ export default class PlayingfieldComponent extends Component {
     return drawn;
   }
 
+  updateHighScores() {
+    if (this.highscores.length < 5) {
+      this.highscores = [...this.highscores, this.finishTime].sort(
+        (a, b) => a > b
+      );
+      this.isHighScore = true;
+    } else if (this.finishTime < this.highscores[4]) {
+      this.highscores.pop();
+      this.highscores = [...this.highscores, this.finishTime].sort(
+        (a, b) => a > b
+      );
+      this.isHighScore = true;
+    }
+    localStorage.setItem('highscores', JSON.stringify(this.highscores));
+  }
+
+  @action clearHighScores() {
+    localStorage.clear();
+    this.highscores = [];
+  }
+
   checkPotentialSet() {
     const picked = this.field.filter((c) => c.selected);
     this.selected = [];
@@ -172,6 +199,7 @@ export default class PlayingfieldComponent extends Component {
       }
       if (this.isWon) {
         this.finishTime = this.time;
+        this.updateHighScores();
       }
       this.count += 1;
       this.hintsActive = 0;
@@ -206,8 +234,11 @@ export default class PlayingfieldComponent extends Component {
     this.hintCounter = 0;
     this.hintsActive = 0;
     this.count = 0;
+    this.isHighScore = false;
     this.timerTask.perform();
     this.isStarted = true;
+    let highscoresString = localStorage.getItem('highscores');
+    this.highscores = JSON.parse(highscoresString).sort((a, b) => a > b);
   }
 
   @action selectCard(id) {
