@@ -190,9 +190,17 @@ export default class PlayingfieldComponent extends Component {
     if (this.args.easy) {
       this.cards = this.getSimpleDeck();
       this.field = [...this.getCards(9)];
+      while (!this.hasSet) {
+        this.cards = this.getSimpleDeck();
+        this.field = [...this.getCards(9)];
+      }
     } else {
       this.cards = this.getDeck();
       this.field = [...this.getCards(12)];
+      while (!this.hasSet) {
+        this.cards = this.getDeck();
+        this.field = [...this.getCards(12)];
+      }
     }
     this.startTime = Date.now();
     this.hintCounter = 0;
@@ -219,7 +227,7 @@ export default class PlayingfieldComponent extends Component {
   @action getHint() {
     const combinations = this.k_combinations(this.field, 3);
     let foundSet = combinations.find((comb) => this.isSet(...comb));
-    foundSet[this.hintCounter % 3].hint = true;
+    foundSet[Math.floor(Math.random() * 3)].hint = true;
     if (this.hintsActive < 3) {
       this.hintCounter++;
       this.hintsActive++;
