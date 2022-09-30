@@ -8,7 +8,7 @@ class Card {
   amount;
   filling;
   color;
-  image;
+  id;
   @tracked selected = false;
   @tracked wrong = false;
   @tracked hint = false;
@@ -17,15 +17,10 @@ class Card {
     this.amount = a;
     this.filling = f;
     this.color = c;
-    this.image = `images/${s}${a}${f}_${c}.svg`;
+    this.id = `${s}${a}${f}_${c}`;
   }
 }
 
-const colors = {
-  red: 'red',
-  green: 'green',
-  purple: 'purple',
-};
 const fillings = {
   solid: 'solid',
   half: 'half',
@@ -55,6 +50,9 @@ export default class PlayingfieldComponent extends Component {
   @tracked hintsActive = 0; // Max 3 since a set contains 3 cards
   @tracked highscores = [];
   @tracked isHighScore = false;
+  @tracked color1 = '#673ab7';
+  @tracked color2 = '#4caf50';
+  @tracked color3 = '#f44336';
 
   get hasSet() {
     const combinations = this.k_combinations(this.field, 3);
@@ -74,12 +72,17 @@ export default class PlayingfieldComponent extends Component {
     return this.highscores.indexOf(this.finishTime) + 1;
   }
 
+  onDone = (color, value) => {
+    console.log(color, value.hex);
+    this[color] = value.hex; // Using only the 6 charachters for RGB
+  };
+
   getDeck() {
     let deck = [];
     for (let s in shapes) {
       for (let a in amount) {
         for (let f in fillings) {
-          for (let c in colors) {
+          for (let c of [this.color1, this.color2, this.color3]) {
             let card = new Card({ s, a, f, c });
             deck.push(card);
           }
@@ -93,7 +96,7 @@ export default class PlayingfieldComponent extends Component {
     let deck = [];
     for (let s in shapes) {
       for (let a in amount) {
-        for (let c in colors) {
+        for (let c of [this.color1, this.color2, this.color3]) {
           let card = new Card({ s, a, f: 'solid', c });
           deck.push(card);
         }
@@ -244,10 +247,10 @@ export default class PlayingfieldComponent extends Component {
   @action selectCard(id) {
     if (this.selected.includes(id)) {
       this.selected.splice(this.selected.indexOf(id), 1);
-      this.field.find((x) => x.image === id).selected = false;
+      this.field.find((x) => x.id === id).selected = false;
     } else {
       this.selected.push(id);
-      this.field.find((x) => x.image === id).selected = true;
+      this.field.find((x) => x.id === id).selected = true;
     }
     if (this.selected.length === 3) {
       this.checkPotentialSet();

@@ -5,6 +5,11 @@
   border-radius: 8px;
   box-shadow: 2px 2px 5px darkgrey;
   background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
 .button:hover {
@@ -26,6 +31,10 @@
 
 .img {
   height: 100%;
+}
+
+svg {
+  height: 50px;
 }
 
 @keyframes shake {

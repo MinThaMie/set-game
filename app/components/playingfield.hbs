@@ -19,7 +19,7 @@
 </div>
 <div local-class="playing-field">
   {{#each this.field as |card|}}
-    <Card @image={{card.image}} @selected={{card.selected}} @wrong={{card.wrong}} @hint={{card.hint}} @onSelect={{this.selectCard}}/>
+    <Card @id={{card.id}} @shape={{card.shape}} @amount={{card.amount}} @filling={{card.filling}} @color={{card.color}} @selected={{card.selected}} @wrong={{card.wrong}} @hint={{card.hint}} @onSelect={{this.selectCard}}/>
   {{/each}}
 </div>
 {{#if this.isWon}}
@@ -32,6 +32,20 @@
 {{else}}
 <div local-class="start">
   <h1>You have not started a{{if @easy "n easy"}} game</h1>
+  <div>
+    <p>If you want to pick your own colors for the game you can select 3 distinct colors below.</p>
+    <div local-class="picker-wrapper">
+      <p local-class="picker-label">
+        Color 1: <Picker @color={{this.color1}} @onDone={{fn this.onDone 'color1'}} />
+      </p>
+      <p local-class="picker-label">
+        Color 2: <Picker @color={{this.color2}} @onDone={{fn this.onDone 'color2'}} />
+      </p>
+      <p local-class="picker-label">
+        Color 3: <Picker @color={{this.color3}} @onDone={{fn this.onDone 'color3'}} />
+      </p>
+    </div>
+  </div>
   <button class="button" local-class="start-button" data-test-startbutton type="button" {{on "click" this.startGame}}>Start the game</button>
 </div>
 {{/if}}

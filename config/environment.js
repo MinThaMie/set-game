@@ -21,6 +21,21 @@ module.exports = function (environment) {
       // Here you can pass flags/options to your application instance
       // when it is created
     },
+    'ember-picker': {
+      parent: undefined,
+      popup: 'right',
+      template: undefined,
+      layout: 'default',
+      alpha: false,
+      editor: true,
+      editorFormat: 'hex',
+      cancelButton: false,
+      color: undefined,
+      onChange: undefined,
+      onDone: undefined,
+      onOpen: undefined,
+      onClose: undefined,
+    },
   };
 
   if (environment === 'development') {
