@@ -5,6 +5,12 @@
   border-radius: 8px;
   box-shadow: 2px 2px 5px darkgrey;
   background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 140px;
 }
 
 .button:hover {
@@ -28,6 +34,10 @@
   height: 100%;
 }
 
+svg {
+  height: 40px;
+}
+
 @keyframes shake {
   10%, 90% {
     transform: translateX(-1px);
@@ -48,10 +58,11 @@
 
 @media(max-width:450px) and (orientation: portrait) {
   .button {
-    height: 100%;
+    height: 130px;
     margin: 0;
+    width: auto;
   }
-  .img {
-    width: 100%;
+  svg {
+    height: 20%;
   }
 }
