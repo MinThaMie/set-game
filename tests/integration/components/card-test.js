@@ -11,8 +11,7 @@ module('Integration | Component | card', function (hooks) {
     await render(hbs`
       <Card @id="diamond2solid_green" @shape="diamond" @amount="2" @filling="solid" @color="green" @selected={{false}} @wrong={{false}} @hint={{false}}/>
     `);
-    assert.dom('[data-test-card-diamond-solid]').exists({count: 2});
-
+    assert.dom('[data-test-card-diamond-solid]').exists({ count: 2 });
   });
 
   test('it replaces hint styling with selected styling', async function (assert) {
