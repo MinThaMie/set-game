@@ -5,9 +5,9 @@ module.exports = function (/* environment, appConfig */) {
   // supported properties
 
   return {
-    name: 'set-game',
-    short_name: 'set-game',
-    description: '',
+    name: 'Set the Game',
+    short_name: 'Set',
+    description: 'Digital version of the card game, Set',
     start_url: '/',
     scope: '/',
     display: 'standalone',
