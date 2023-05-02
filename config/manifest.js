@@ -19,6 +19,11 @@ module.exports = function (/* environment, appConfig */) {
         sizes: '180x180',
       },
       {
+        src: '/images/logo/logo.png',
+        sizes: '180x180',
+        targets: ['favicon'],
+      },
+      {
         src: '/images/logo/splash-screen.png',
         sizes: '512x512',
       },
